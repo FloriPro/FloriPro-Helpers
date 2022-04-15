@@ -1,0 +1,17 @@
+{
+    "programs": [
+        {
+            "name": "Test",
+            "mainScript": "/c/test.js"
+        },
+        {
+            "name": "programs",
+            "mainScript": "/c/js/programs.js"
+        }
+    ],
+    "startMenu": {
+        "programs": "startProgram('programs')",
+        "settings": "",
+        "exit": ""
+    }
+}
