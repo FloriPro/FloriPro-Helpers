@@ -8,9 +8,9 @@ class program {
     }
 
     init() {
-        alert("moin");
+        self.wind = createWindow("test :)", "automatic");
+        self.wind.setContent("<h1>just some testing</h1>")
     }
-
 }
-    
-prog=new program();
+
+prog = new program();

@@ -10,8 +10,8 @@
     <meta name="description" content="Just some Stuff">
     <meta name="author" content="FloriPro">
 
-    <link rel="icon" href="/favicon.ico">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <!--<link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">-->
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
     <link rel="stylesheet" href="/c/css/styles.css?v=1.0">
@@ -19,7 +19,8 @@
     <script src="https://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
 </head>
 
-<body>
+<body onmouseup="for(let element of document.getElementsByClassName('window')){element.move=false;}"
+    onmousemove="for(let element of document.getElementsByClassName('window')){if(element.move){element.style.top=parseInt(element.style.top)+event.movementY+'px';element.style.left=parseInt(element.style.left)+event.movementX+'px';event.preventDefault();}}">
     <div id="all">
         <div id="stuff">
 

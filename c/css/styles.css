@@ -1,5 +1,5 @@
 #all {
-    background: url("/c/static/background.jpg") center center / cover no-repeat;
+    background: url("/c/static/background2.jpg") center center / cover no-repeat;
     box-sizing: border-box;
 
     bottom: 0;
@@ -99,7 +99,7 @@
     position: fixed;
     right: 0;
     z-index: 5000;
-    height: 20px;
+    height: 35px;
 }
 
 p {
@@ -116,7 +116,7 @@ p {
     margin: 0;
     padding: 2px;
     position: absolute;
-    bottom: 20px;
+    bottom: 40px;
     vertical-align: top;
 }
 
@@ -147,8 +147,7 @@ button {
 
 * {
     -webkit-font-smoothing: subpixel-antialiased;
-    font-size: 20px;
-    size: 110%;
+    font-size: 25px;
 
-    zoom: 1.05;
+    zoom: 1.00;
 }
