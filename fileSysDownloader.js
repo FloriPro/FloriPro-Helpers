@@ -5,7 +5,7 @@ async function loadData() {
         redownload = true;
     }
     if (redownload) {
-        response = await fetch("/filesys.json");
+        response = await fetch("filesys.json");
         var d = await response.text();
         //read json and de-hexify data, store in localstorage, set pointer to files
         filesys = JSON.parse(d)[""];
