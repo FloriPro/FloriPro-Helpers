@@ -13,14 +13,19 @@ class program {
             if (data != "") {
                 data += "<hr>";
             }
-            data += "<p onclick='startProgram(\"" + key + "\")' style='cursor:pointer;'>" + key + "</p>";
+            data += "<p onclick='startProgram(\"" + key + "\");getProgramId(" + this.id + ").wind.onCloseButton();' style='cursor:pointer;'>" + key + "</p>";
         }
 
+        this.wind = createWindow("Programs", "automatic", null, this);
+        this.wind.windowClose = function () {
+            nextWindowPosX = parseInt(document.getElementsByClassName(this.getClass())[0].style.left)
+            nextWindowPosY = parseInt(document.getElementsByClassName(this.getClass())[0].style.top)
+            console.log("handle close");
+            this.getProgram().removeSelf(this);
+            return true;
+        }
 
-        self.wind = createWindow("Programs", "automatic");
-        self.wind.windowClose = function () { console.log("idk"); return true; }
-
-        self.wind.setContent(data)
+        this.wind.setContent(data)
 
     }
 }

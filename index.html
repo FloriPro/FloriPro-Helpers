@@ -14,39 +14,15 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">-->
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-    <link rel="stylesheet" href="/c/css/styles.css?v=1.0">
+    <!--<link rel="stylesheet" href="/c/css/styles.css?v=1.0">-->
 
     <script src="https://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
+    <script src="/fileSysDownloader.js"></script>
 </head>
 
-<body onmouseup="for(let element of document.getElementsByClassName('window')){element.move=false;}"
-    onmousemove="for(let element of document.getElementsByClassName('window')){if(element.move){element.style.top=parseInt(element.style.top)+event.movementY+'px';element.style.left=parseInt(element.style.left)+event.movementX+'px';event.preventDefault();}}">
-    <div id="all">
-        <div id="stuff">
-
-        </div>
-        <div id="StartMenu" style="display: none;">
-            <div class="StartMenuSelector">
-            </div>
-            <div class="StartMenuSelector" onclick="startMenuClick(this);">
-                <p>programs</p>
-            </div>
-            <hr>
-            <div class="StartMenuSelector" onclick="startMenuClick(this);">
-                <p>settings</p>
-            </div>
-            <div class="StartMenuSelector" onclick="startMenuClick(this);">
-                <hr>
-                <p>exit</p>
-            </div>
-        </div>
-        <div id="taskbar">
-            <button onclick="toggleStartMenu();">⁕</button>
-        </div>
-    </div>
-
-
-    <script src="/c/js/main.js"></script>
+<body>
+    <p>seems like your browser doesn't support this :(</p>
+    <!--<script src="/c/js/main.js"></script>-->
 </body>
 
 </html>

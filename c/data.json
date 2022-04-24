@@ -2,16 +2,28 @@
     "programs": [
         {
             "name": "Test",
-            "mainScript": "/c/test.js"
+            "mainScript": "c/test.js"
         },
         {
             "name": "programs",
-            "mainScript": "/c/js/programs.js"
+            "mainScript": "c/js/programs.js"
+        },
+        {
+            "name": "Settings",
+            "mainScript": "c/js/settings.js"
+        },
+        {
+            "name": "ImageDisplay",
+            "mainScript": "c/programs/image.js"
         }
     ],
     "startMenu": {
-        "programs": "startProgram('programs')",
-        "settings": "",
-        "exit": ""
+        "programs": "nextWindowPosX=30;nextWindowPosY=parseInt(window.innerHeight)-400;startProgram('programs')",
+        "settings": "startProgram('Settings')",
+        "exit": "document.getElementsByTagName('html')[0].remove(); alert('safe to shut down');"
+    },
+    "settings": {
+        "backgroundImage": "file",
+        "unset": "text"
     }
 }
