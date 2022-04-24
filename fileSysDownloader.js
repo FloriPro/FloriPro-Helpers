@@ -1,17 +1,23 @@
-console.log("download Data");
 let fileLookup = {}
 async function loadData() {
-    response = await fetch("/filesys.json");
-    var d = await response.text();
-    //read json and de-hexify data, store in localstorage, set pointer to files
-    filesys = JSON.parse(d)[""];
-    console.log(filesys);
-    loadDir(filesys, "c");
-    localStorage.setItem("fileLookup", JSON.stringify(fileLookup));
+    var redownload = false;
+    if (localStorage.getItem("fileLookup") == null) {
+        redownload = true;
+    }
+    if (redownload) {
+        response = await fetch("/filesys.json");
+        var d = await response.text();
+        //read json and de-hexify data, store in localstorage, set pointer to files
+        filesys = JSON.parse(d)[""];
+        loadDir(filesys, "c");
+        localStorage.setItem("fileLookup", JSON.stringify(fileLookup));
+    } else {
+        fileLookup = JSON.parse(localStorage.getItem("fileLookup"));
+    }
 
     //localStorage.setItem("filesys.json", d);
 
-    var toRun = localStorage.getItem(fileLookup["c/boot.dat"]).split("\r\n")
+    var toRun = localStorage.getItem(fileLookup["c/boot.dat"]).split("\n");
     for (var r of toRun) {
         eval(localStorage.getItem(fileLookup[r]));
     }
@@ -21,7 +27,6 @@ function loadDir(dat, path) {
         if (typeof value == "string") {
             id = Object.keys(fileLookup).length //TODO: make better
             fileLookup[path + "/" + key] = id;
-            console.log(key);
             localStorage.setItem(id, b64_to_utf8(value));
         } else {
             if (isNaN(parseInt(key))) {

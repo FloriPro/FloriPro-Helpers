@@ -15,10 +15,19 @@
         {
             "name": "ImageDisplay",
             "mainScript": "c/programs/image.js"
+        },
+        {
+            "name": "TextEditor",
+            "mainScript": "c/programs/text.js"
+        },
+        {
+            "name": "Info",
+            "mainScript": "c/js/info.js"
         }
     ],
     "startMenu": {
         "programs": "nextWindowPosX=30;nextWindowPosY=parseInt(window.innerHeight)-400;startProgram('programs')",
+        "Info": "startProgram('Info')",
         "settings": "startProgram('Settings')",
         "exit": "document.getElementsByTagName('html')[0].remove(); alert('safe to shut down');"
     },

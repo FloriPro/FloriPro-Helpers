@@ -5,7 +5,6 @@ import base64
 
 def path_to_dict(path):
     if os.path.isdir(path):
-        print(path)
         d = {os.path.basename(path): [path_to_dict(
             os.path.join(path, x)) for x in os.listdir(path)]}
     else:
@@ -19,4 +18,5 @@ def path_to_dict(path):
 
 with open("filesys.json", "w") as f:
     json.dump(path_to_dict("./c/"), f)
+print("ok")
 # print(json.dumps(path_to_dict('./c/')))

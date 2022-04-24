@@ -1,21 +1,13 @@
-console.log("initialising fileSystem.js");
 imagePathToStringSrc = function (path) {
-    var dataImage = localStorage.getItem(fileLookup[path]);
-    return "data:image/png;base64," + btoa(dataImage);
+    return "data:image/png;base64," + btoa(getFile(path));
 }
-console.log("fileSystem.js initialised");
-
-createFastFileSelection = function (onClose, endFunctionName, program) {
-    var selectWindow = createWindow("File selection (pre-alpha)", "automatic", null, program);
-    selectWindow.windowClose = onClose;
-
-    //create data
-    var data = ""
-    for (const [path, value] of Object.entries(fileLookup)) {
-        data += '<button onclick="searchWindows(\'' + selectWindow.getClass() + '\').getProgram().' + endFunctionName + '(\'' + path + '\')">' + path + '</button>';
+getFile = function (path) {
+    return localStorage.getItem(fileLookup[path]);
+}
+saveFile = function (path, data) {
+    if (fileLookup[path] == null) {
+        fileLookup[path] = Object.keys(fileLookup).length;//TODO: make better
     }
-
-    selectWindow.setContent("<h2>Select a File</h2>" + data);
-
-    return selectWindow;
+    localStorage.setItem("fileLookup", JSON.stringify(fileLookup));
+    return localStorage.setItem(fileLookup[path], data)
 }

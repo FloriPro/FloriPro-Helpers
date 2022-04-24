@@ -19,23 +19,12 @@ class program {
 
         this.selectWindow = createFastFileSelection(function () { this.getProgram().selectWindow = null; return true; }, "imageSelect", this)
         this.wind.getHtml().querySelector('#tableBanner').src = imagePathToStringSrc('c/static/background2.jpg');
-        console.log(this.wind.getHtml().querySelector("img").style.zoom = "25%");
+        this.wind.getHtml().querySelector("img").style.zoom = "25%"
     }
 
     openFileExplorer() {
         if (this.selectWindow == null) {
             this.selectWindow = createFastFileSelection(function () { this.getProgram().selectWindow = null; return true; }, "imageSelect", this)
-            //this.selectWindow = createWindow("file selection (pre-alpha)", "automatic", null, this);
-            //this.selectWindow.windowClose = function () {
-            //    this.getProgram().selectWindow = null;
-            //    return true;
-            //}
-            ////create data
-            //var data = ""
-            //for (const [x, value] of Object.entries(fileLookup)) {
-            //    data += '<button onclick="searchWindows(\'' + this.selectWindow.getClass() + '\').getProgram().imageSelect(\'' + x + '\')">' + x + '</button>';
-            //}
-            //this.selectWindow.setContent("<h2>Select a File</h2>" + data);
         } else {
             windowAlert("please use the already opened file selection")
         }

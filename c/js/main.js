@@ -1,68 +1,4 @@
-console.log("starting main.js")
-
-LocalWindow = class {
-    constructor(name, sizeX, sizeY, program, startPosX, startPosY) {
-        if (startPosX == undefined) { startPosX = nextWindowPosX; nextWindowPosX = parseInt(window.innerWidth / 2); }
-        if (startPosY == undefined) { startPosY = nextWindowPosY; nextWindowPosY = parseInt(window.innerHeight / 2); }
-
-        console.log("create Windown: " + name);
-        this.program = program;
-        this.name = "windwoasdöflkj";
-        this.uuid = getFreeWindowUUID(this.name);//document.querySelectorAll(".window").length;
-        this.isMoving = false;
-
-        $("#stuff").append('<div class="window window' + this.name + '_' + this.uuid + '" style="z-index: 500;position: absolute; top: ' + startPosY + 'px; left: ' + startPosX + 'px;"><div class="title-bar" onmousedown="this.parentNode.move=true;event.preventDefault();sortWindowZIndex(this.parentNode);"><div class="title-bar-text"><span>' + name + '</span></div> <div class="title-bar-controls"><button aria-label="Minimize"></button> <button aria-label="Maximize"></button><button aria-label="Close" class="close" onclick="var p = this.parentNode.parentNode.parentNode; var n=p.className;var w=searchWindows(n);w.onCloseButton();"></button></div></div><div class="content"><p>loading Window content... please wait</p></div></div>');
-        //document.getElementsByClassName('window' + this.name + '_' + this.uuid)[0].querySelector(".close").addEventListener("click", function (e) { this.onCloseButton(); });
-
-        if (sizeX == "automatic") {
-            this.type = "aut"
-            console.log("type: automatic")
-            document.getElementsByClassName('window' + this.name + '_' + this.uuid)[0].style.width = "fit-content";
-            document.getElementsByClassName('window' + this.name + '_' + this.uuid)[0].style.height = "fit-content";
-        } else {
-            console.log("type: specified")
-            this.type = "specified";
-            this.sizeX = sizeX;
-            this.sizeY = sizeY;
-            document.getElementsByClassName('window' + this.name + '_' + this.uuid)[0].style.width = this.sizeX + "px";
-            document.getElementsByClassName('window' + this.name + '_' + this.uuid)[0].style.height = this.sizeY + "px";
-        }
-    }
-    windowClose() {
-        return true;
-    }
-    setContent(html) {
-        document.getElementById("stuff").querySelector(".window" + this.name + "_" + this.uuid).querySelector(".content").innerHTML = html;
-    }
-    onCloseButton() {
-        if (this.windowClose()) {
-            console.log("closeing...");
-
-            //remove from data
-            var index = _dataWindows.indexOf(this);
-            if (index !== -1) {
-                _dataWindows.splice(index, 1);
-            } else {
-                console.error("could not remove window from array")
-            }
-
-            //remove html
-            document.getElementsByClassName('window' + this.name + '_' + this.uuid)[0].remove();
-        } else {
-            console.log("close cancel");
-        }
-    }
-    getClass() {
-        return 'window window' + this.name + '_' + this.uuid;
-    }
-    getHtml() {
-        return document.getElementsByClassName(this.getClass())[0];
-    }
-    getProgram() {
-        return this.program;
-    }
-}
-
+eval(getFile("c/js/window.js"));
 getFreeWindowUUID = function (name) {
     var i = 0;
     while (document.querySelectorAll(".window" + name + "_" + i).length != 0) {
@@ -108,6 +44,7 @@ getProgramId = function (id) {
             return progr[1];
         }
     }
+    return null;
 }
 
 createWindow = function (name, posx, posy, program, startX, startY) {
@@ -133,7 +70,12 @@ startProgram = async function (programName) {
     eval(d);
 
     //initialize program
-    prog.id = _dataRunningProgrms.length;
+    var i = 0;
+    while (getProgramId(i) != null) {
+        i++;
+    }
+
+    prog.id = i;
     prog.removeSelf = removeProgram;
     prog.init();
     _dataRunningProgrms.push([programName, prog]);
@@ -155,9 +97,7 @@ _dataWindows = [];
 
 loadData = function () {
     json = JSON.parse(localStorage.getItem(fileLookup["c/data.json"]))
-    console.log(json);
     _dataDataJson = json;
-    //console.log(json); // this will show the info it in firebug console
     json.programs.forEach(element => {
         _dataPrograms[element.name] = element.mainScript;
     });
@@ -176,12 +116,9 @@ initHtml = function () {
     var s = document.createElement("style");
     s.innerHTML = localStorage.getItem(fileLookup["c/css/styles.css"]);
     document.getElementsByTagName("head")[0].appendChild(s);
-    console.log("added css")
 
     //set background img
     document.getElementById("all").style.background = 'url("' + imagePathToStringSrc('c/static/background.jpg') + '") center center / cover no-repeat';
 }
 
 initHtml();
-
-console.log("main.js initialized")
