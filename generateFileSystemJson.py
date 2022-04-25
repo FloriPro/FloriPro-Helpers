@@ -1,6 +1,7 @@
 import os
 import json
 import base64
+import time
 
 
 def path_to_dict(path):
@@ -16,7 +17,13 @@ def path_to_dict(path):
     return d
 
 
-with open("filesys.json", "w") as f:
-    json.dump(path_to_dict("./c/"), f)
-print("ok")
+def upadte():
+    with open("filesys.json", "w") as f:
+        json.dump(path_to_dict("./c/"), f)
+    print("ok")
 # print(json.dumps(path_to_dict('./c/')))
+
+
+while True:
+    time.sleep(1)
+    upadte()
