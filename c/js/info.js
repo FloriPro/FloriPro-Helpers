@@ -8,7 +8,7 @@ class program {
     }
 
     init() {
-        this.wind = createWindow("Info", "automatic", null, this);
+        this.wind = createWindow("Info", 500, "fit-content", this);
         this.wind.windowClose = function () {
             return true;
         }

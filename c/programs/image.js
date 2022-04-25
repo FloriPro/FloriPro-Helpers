@@ -7,6 +7,10 @@ class program {
         alert("opened with file " + file);
     }
 
+    init(file) {
+        this.init();
+        this.imageSelect(file);
+    }
     init() {
         this.selectWindow = null;
         this.wind = createWindow("image viewer", "automatic", null, this);

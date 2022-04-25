@@ -6,6 +6,10 @@ class program {
     onOpen(file) {
         alert("opened with file " + file);
     }
+    init(file) {
+        this.init();
+        fileSelect(file);
+    }
 
     init() {
         this.path = null

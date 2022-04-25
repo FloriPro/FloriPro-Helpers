@@ -1,16 +1,16 @@
 {
     "programs": [
         {
-            "name": "Test",
-            "mainScript": "c/test.js"
-        },
-        {
             "name": "programs",
             "mainScript": "c/js/programs.js"
         },
         {
             "name": "Settings",
             "mainScript": "c/js/settings.js"
+        },
+        {
+            "name": "Browser",
+            "mainScript": "c/programs/browser.js"
         },
         {
             "name": "ImageDisplay",
@@ -23,16 +23,32 @@
         {
             "name": "Info",
             "mainScript": "c/js/info.js"
+        },
+        {
+            "name": "Explorer",
+            "mainScript": "c/programs/explorer.js"
         }
     ],
     "startMenu": {
-        "programs": "nextWindowPosX=30;nextWindowPosY=parseInt(window.innerHeight)-400;startProgram('programs')",
+        "Programs": "nextWindowPosX=30;nextWindowPosY=parseInt(window.innerHeight)-600;startProgram('programs')",
         "Info": "startProgram('Info')",
-        "settings": "startProgram('Settings')",
-        "exit": "document.getElementsByTagName('html')[0].remove(); alert('safe to shut down');"
+        "Settings": "startProgram('Settings')",
+        "Reset": "localStorage.clear();location.reload();",
+        "Exit": "document.getElementsByTagName('html')[0].remove(); alert('safe to shut down');"
     },
     "settings": {
         "backgroundImage": "file",
         "unset": "text"
+    },
+    "toStartWith": {
+        "js": "TextEditor",
+        "txt": "TextEditor",
+        "dat": "TextEditor",
+        "json": "TextEditor",
+        "css": "TextEditor",
+        "html": "TextEditor",
+        "py": "TextEditor",
+        "md": "TextEditor",
+        "jpg": "ImageDisplay"
     }
 }

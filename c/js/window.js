@@ -23,6 +23,20 @@ LocalWindow = class {
             document.getElementsByClassName('window' + this.name + '_' + this.uuid)[0].style.width = this.sizeX + "px";
             document.getElementsByClassName('window' + this.name + '_' + this.uuid)[0].style.height = this.sizeY + "px";
         }
+
+    }
+    setWindowSize(sizeX, sizeY) {
+        if (sizeX == "automatic") {
+            this.type = "aut"
+            document.getElementsByClassName('window' + this.name + '_' + this.uuid)[0].style.width = "fit-content";
+            document.getElementsByClassName('window' + this.name + '_' + this.uuid)[0].style.height = "fit-content";
+        } else {
+            this.type = "specified";
+            this.sizeX = sizeX;
+            this.sizeY = sizeY;
+            document.getElementsByClassName('window' + this.name + '_' + this.uuid)[0].style.width = this.sizeX + "px";
+            document.getElementsByClassName('window' + this.name + '_' + this.uuid)[0].style.height = this.sizeY + "px";
+        }
     }
     windowClose() {
         return true;

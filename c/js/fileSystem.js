@@ -1,8 +1,12 @@
 imagePathToStringSrc = function (path) {
-    return "data:image/png;base64," + btoa(getFile(path));
+    return "data:image/png;base64," + btoa(localStorage.getItem(fileLookup[path]));
 }
 getFile = function (path) {
-    return localStorage.getItem(fileLookup[path]);
+    if (path.endsWith(".od")) {
+        return "can't load onlineData files... I hope to fix this";
+    } else {
+        return localStorage.getItem(fileLookup[path]);
+    }
 }
 saveFile = function (path, data) {
     if (fileLookup[path] == null) {

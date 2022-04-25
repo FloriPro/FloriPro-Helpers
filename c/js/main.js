@@ -27,7 +27,6 @@ toggleStartMenu = function () {
     }
 }
 
-
 windowCloseButton = function (t) {
     var className = t.parentNode.parentNode.parentNode.classList[1];
 
@@ -61,11 +60,19 @@ removeProgram = function (_this) {
     console.error("could not remove program")
 }
 
-startProgram = async function (programName) {
+htmlEntities = function (str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+downloadSync = function (url) {
+    return "idk how to do this";
+}
+
+startProgram = function (programName) {
     //create program from online file (evaling to get class)
     //response = await fetch(_dataPrograms[programName]);
     //var d = await response.text();
-    var d = localStorage.getItem(fileLookup[_dataPrograms[programName]]);
+    var d = getFile(_dataPrograms[programName]);
     var prog;
     eval(d);
 
@@ -79,6 +86,10 @@ startProgram = async function (programName) {
     prog.removeSelf = removeProgram;
     prog.init();
     _dataRunningProgrms.push([programName, prog]);
+}
+
+loadFile = function(){
+    alert("not implemented")
 }
 
 startMenuClick = function (s) {
@@ -96,7 +107,7 @@ _dataDataJson = {};
 _dataWindows = [];
 
 loadData = function () {
-    json = JSON.parse(localStorage.getItem(fileLookup["c/data.json"]))
+    json = JSON.parse(getFile("c/data.json"))
     _dataDataJson = json;
     json.programs.forEach(element => {
         _dataPrograms[element.name] = element.mainScript;
@@ -109,12 +120,18 @@ window.onbeforeunload = function () {
 }
 
 initHtml = function () {
-    document.querySelector("body").innerHTML = '<div id="all">    <div id="stuff">    </div>    <div id="StartMenu" style="display: none;">        <div class="StartMenuSelector">        </div>        <div class="StartMenuSelector" onclick="startMenuClick(this);">            <p>programs</p>        </div>        <hr>        <div class="StartMenuSelector" onclick="startMenuClick(this);">            <p>settings</p>        </div>        <div class="StartMenuSelector" onclick="startMenuClick(this);">            <hr>            <p>exit</p>        </div>    </div>    <div id="taskbar">        <button onclick="toggleStartMenu();" id="home"><span>⁕</span></button>    </div></div>';
+    document.querySelector("body").innerHTML = '<div id="all"><div id="stuff"></div><div id="StartMenu" style="display: none;"></div><div id="taskbar"><button onclick="toggleStartMenu();" id="home"><span>⁕</span></button></div></div>';
+    //<div class="StartMenuSelector" onclick="startMenuClick(this);"><p>programs</p></div><hr>
+    var d = [];
+    for (const [path, value] of Object.entries(_dataDataJson["startMenu"])) {
+        d.push('<div class="StartMenuSelector" onclick="startMenuClick(this);"><p>' + path + '</p></div>')
+    }
+    document.querySelector("#StartMenu").innerHTML = d.join("<hr>")
     document.querySelector("body").onmouseup = function (event) { for (var element of document.getElementsByClassName('window')) { element.move = false; } };
     document.querySelector("body").onmousemove = function (event) { for (var element of document.getElementsByClassName('window')) { if (element.move) { element.style.top = parseInt(element.style.top) + event.movementY + 'px'; element.style.left = parseInt(element.style.left) + event.movementX + 'px'; event.preventDefault(); } } };
 
     var s = document.createElement("style");
-    s.innerHTML = localStorage.getItem(fileLookup["c/css/styles.css"]);
+    s.innerHTML = getFile("c/css/styles.css");
     document.getElementsByTagName("head")[0].appendChild(s);
 
     //set background img

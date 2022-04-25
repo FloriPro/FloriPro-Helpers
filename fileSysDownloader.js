@@ -1,4 +1,5 @@
 let fileLookup = {}
+let folderData = []
 async function loadData() {
     var redownload = false;
     if (localStorage.getItem("fileLookup") == null) {
