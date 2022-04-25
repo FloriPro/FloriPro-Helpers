@@ -87,9 +87,33 @@ startProgram = function (programName) {
     prog.init();
     _dataRunningProgrms.push([programName, prog]);
 }
+startProgramFile = function (programName, file) {
+    //create program from online file (evaling to get class)
+    //response = await fetch(_dataPrograms[programName]);
+    //var d = await response.text();
+    var d = getFile(_dataPrograms[programName]);
+    var prog;
+    eval(d);
 
-loadFile = function(){
-    alert("not implemented")
+    //initialize program
+    var i = 0;
+    while (getProgramId(i) != null) {
+        i++;
+    }
+
+    prog.id = i;
+    prog.removeSelf = removeProgram;
+    prog.initFile(file);
+    _dataRunningProgrms.push([programName, prog]);
+}
+
+loadFile = function (f) {
+    prog = ""
+    var p = f.split(".")[f.split(".").length - 1];
+    if (_dataDataJson["toStartWith"][p] != undefined) {
+        prog = _dataDataJson["toStartWith"][p]
+    }
+    startProgramFile(prog, f);
 }
 
 startMenuClick = function (s) {
@@ -105,6 +129,8 @@ _dataPrograms = {};
 _dataDataJson = {};
 
 _dataWindows = [];
+
+_globalVar = {};
 
 loadData = function () {
     json = JSON.parse(getFile("c/data.json"))

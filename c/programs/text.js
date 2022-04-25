@@ -6,9 +6,9 @@ class program {
     onOpen(file) {
         alert("opened with file " + file);
     }
-    init(file) {
+    initFile(file) {
         this.init();
-        fileSelect(file);
+        this.fileSelect(file);
     }
 
     init() {
@@ -28,15 +28,20 @@ class program {
             return true;
         }
 
-        var styleSheet = document.createElement("style")
-        styleSheet.innerText = getFile("c/programs/text/prism.css")
-        document.head.appendChild(styleSheet)
-        var styleSheet = document.createElement("style")
-        styleSheet.innerText = getFile("c/programs/text/prism2.css")
-        document.head.appendChild(styleSheet)
+        if (_globalVar["prismOK"] == undefined) {
+            var styleSheet = document.createElement("style")
+            styleSheet.innerText = getFile("c/programs/text/prism.css")
+            document.head.appendChild(styleSheet)
+            var styleSheet = document.createElement("style")
+            styleSheet.innerText = getFile("c/programs/text/prism2.css")
+            document.head.appendChild(styleSheet)
 
-        eval(getFile("c/programs/text/prism.js"))
-        eval(getFile("c/programs/text/prismaddon.js"))
+            eval(getFile("c/programs/text/prism.js"))
+            eval(getFile("c/programs/text/prismaddon.js"))
+            _globalVar["prismOK"]=true
+        }
+
+        Prism.highlightElement(this.wind.getHtml().querySelector('#highlighting-content'));
 
 
         //this.selectWindow = createFastFileSelection(function () { this.getProgram().selectWindow = null; return true; }, "fileSelect", this)
@@ -53,7 +58,9 @@ class program {
         this.path = file;
         this.wind.getHtml().querySelector("#editing").value = getFile(file);
         this.wind.getHtml().querySelector("#editing").oninput()
-        this.selectWindow.onCloseButton();
+        if (this.selectWindow != null) {
+            this.selectWindow.onCloseButton();
+        }
         this.selectWindow = null;
     }
     save() {

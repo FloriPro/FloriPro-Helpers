@@ -7,7 +7,7 @@ class program {
         alert("opened with file " + file);
     }
 
-    init(file) {
+    initFile(file) {
         this.init();
         this.imageSelect(file);
     }
@@ -21,7 +21,7 @@ class program {
             return true;
         }
 
-        this.selectWindow = createFastFileSelection(function () { this.getProgram().selectWindow = null; return true; }, "imageSelect", this)
+        //this.selectWindow = createFastFileSelection(function () { this.getProgram().selectWindow = null; return true; }, "imageSelect", this)
         this.wind.getHtml().querySelector('#tableBanner').src = imagePathToStringSrc('c/static/background2.jpg');
         this.wind.getHtml().querySelector("img").style.zoom = "25%"
     }
@@ -39,7 +39,9 @@ class program {
         } catch {
             windowAlert("could not load image file")
         }
-        this.selectWindow.onCloseButton();
+        if (this.selectWindow != null) {
+            this.selectWindow.onCloseButton();
+        }
         this.selectWindow = null;
     }
 }
