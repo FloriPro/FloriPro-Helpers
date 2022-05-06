@@ -170,4 +170,8 @@ async function start() {
     await loadData();
     await initHtml();
 }
+
+delay = function (time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+}
 start();

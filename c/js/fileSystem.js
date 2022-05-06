@@ -11,21 +11,13 @@ getFile = async function (path) {
         }
 
         var f = await fetch(localStorage.getItem(fileLookup[path]));
-        wind.onCloseButton();
-
-        //var decoder = new TextDecoder("ascii");
-        //decoder.ignoreBOM=false;
-        //var text = decoder.decode(await f.arrayBuffer());
-
-        //return text;
-
         var array = await f.arrayBuffer();
-        //return Array.prototype.slice.call(new Uint8Array(array)).join("")
-        //return String.fromCharCode(bufferToString(array));
 
-        return bufferToString(array);
-
-        //return "can't load onlineData files... I hope to fix this";
+        wind.setContent('<h1>Loading File Data ' + path + '</h1>')
+        await delay(10);
+        var dat = bufferToString(array);
+        wind.onCloseButton();//close loading window
+        return dat;
     } else {
         return localStorage.getItem(fileLookup[path]);
     }
@@ -39,10 +31,9 @@ saveFile = function (path, data) {
 }
 bufferToString = function (buf) {
     var view = new Uint8Array(buf);
-    out = ""
+    out=""
     for (var x of view) {
         out += String.fromCharCode(x);
     }
     return out;
-    return Array.prototype.join.call(view, ",");
 }
