@@ -7,7 +7,6 @@ LocalWindow = class {
         this.name = "windwoasdöflkj";
         this.uuid = getFreeWindowUUID(this.name);
         this.isMoving = false;
-        console.log("create Windown: " + name + " | id: " + this.uuid);
 
         $("#stuff").append('<div class="window window' + this.name + '_' + this.uuid + '" style="z-index: 1;position: absolute; top: ' + startPosY + 'px; left: ' + startPosX + 'px;"><div class="title-bar" onmousedown="this.parentNode.move=true;event.preventDefault();sortWindowZIndex(this.parentNode);"><div class="title-bar-text"><span>' + name + '</span></div> <div class="title-bar-controls"><button aria-label="Minimize"></button> <button aria-label="Maximize"></button><button aria-label="Close" class="close" onclick="var p = this.parentNode.parentNode.parentNode; var n=p.className;var w=searchWindows(n);w.onCloseButton();"></button></div></div><div style="display:flex" class="buttonData"></div><div class="content"><p>loading Window content... please wait</p></div></div>');
         //document.getElementsByClassName('window' + this.name + '_' + this.uuid)[0].querySelector(".close").addEventListener("click", function (e) { this.onCloseButton(); });
@@ -46,7 +45,6 @@ LocalWindow = class {
     }
     onCloseButton() {
         if (this.windowClose()) {
-            console.log("closeing... id: " + this.uuid);
 
             //remove from data
             var index = _dataWindows.indexOf(this);
@@ -59,7 +57,6 @@ LocalWindow = class {
             //remove html
             document.getElementsByClassName('window' + this.name + '_' + this.uuid)[0].remove();
         } else {
-            console.log("close cancel");
         }
     }
     getClass() {

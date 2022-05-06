@@ -11,7 +11,7 @@ class program {
         this.fileSelect(file);
     }
 
-    init() {
+    async init() {
         this.path = null
         this.selectWindow = null;
         this.wind = createWindow("Text editor", 550, 500, this);
@@ -20,7 +20,8 @@ class program {
         this.wind.setButtons({
             "File": "searchWindows(\'" + this.wind.getClass() + "\').getProgram().openFileExplorer()",
             "Save": "searchWindows(\'" + this.wind.getClass() + "\').getProgram().save()",
-            "New": "searchWindows(\'" + this.wind.getClass() + "\').getProgram().path=prompt('new name');"
+            "New": "searchWindows(\'" + this.wind.getClass() + "\').getProgram().path=prompt('new name');",
+            "Run": "searchWindows(\'" + this.wind.getClass() + "\').getProgram().run()"
         })
 
         this.wind.windowClose = function () {
@@ -30,15 +31,15 @@ class program {
 
         if (_globalVar["prismOK"] == undefined) {
             var styleSheet = document.createElement("style")
-            styleSheet.innerText = getFile("c/programs/text/prism.css")
+            styleSheet.innerText = await getFile("c/programs/text/prism.css")
             document.head.appendChild(styleSheet)
             var styleSheet = document.createElement("style")
-            styleSheet.innerText = getFile("c/programs/text/prism2.css")
+            styleSheet.innerText = await getFile("c/programs/text/prism2.css")
             document.head.appendChild(styleSheet)
 
-            eval(getFile("c/programs/text/prism.js"))
-            eval(getFile("c/programs/text/prismaddon.js"))
-            _globalVar["prismOK"]=true
+            eval(await getFile("c/programs/text/prism.js"))
+            eval(await getFile("c/programs/text/prismaddon.js"))
+            _globalVar["prismOK"] = true
         }
 
         Prism.highlightElement(this.wind.getHtml().querySelector('#highlighting-content'));
@@ -54,9 +55,9 @@ class program {
             windowAlert("please use the already opened file selection")
         }
     }
-    fileSelect(file) {
+    async fileSelect(file) {
         this.path = file;
-        this.wind.getHtml().querySelector("#editing").value = getFile(file);
+        this.wind.getHtml().querySelector("#editing").value = await getFile(file);
         this.wind.getHtml().querySelector("#editing").oninput()
         if (this.selectWindow != null) {
             this.selectWindow.onCloseButton();
@@ -65,6 +66,10 @@ class program {
     }
     save() {
         saveFile(this.path, this.wind.getHtml().querySelector("#editing").value);
+    }
+    async run() {
+        this.save();
+        eval(await getFile(this.path));
     }
 }
 

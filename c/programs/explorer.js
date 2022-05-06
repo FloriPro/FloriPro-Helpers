@@ -55,7 +55,6 @@ class program {
     }
     back() {
         this.pos = this.pos.split("/").slice(0, -2).join("/") + "/";
-        console.log(this.pos);
         this.loadFiles();
     }
 }

@@ -1,4 +1,3 @@
-eval(getFile("c/js/window.js"));
 getFreeWindowUUID = function (name) {
     var i = 0;
     while (document.querySelectorAll(".window" + name + "_" + i).length != 0) {
@@ -68,11 +67,11 @@ downloadSync = function (url) {
     return "idk how to do this";
 }
 
-startProgram = function (programName) {
+startProgram = async function (programName) {
     //create program from online file (evaling to get class)
     //response = await fetch(_dataPrograms[programName]);
     //var d = await response.text();
-    var d = getFile(_dataPrograms[programName]);
+    var d = await getFile(_dataPrograms[programName]);
     var prog;
     eval(d);
 
@@ -87,11 +86,11 @@ startProgram = function (programName) {
     prog.init();
     _dataRunningProgrms.push([programName, prog]);
 }
-startProgramFile = function (programName, file) {
+startProgramFile = async function (programName, file) {
     //create program from online file (evaling to get class)
     //response = await fetch(_dataPrograms[programName]);
     //var d = await response.text();
-    var d = getFile(_dataPrograms[programName]);
+    var d = await getFile(_dataPrograms[programName]);
     var prog;
     eval(d);
 
@@ -108,12 +107,16 @@ startProgramFile = function (programName, file) {
 }
 
 loadFile = function (f) {
+    var ff = f;
+    if (f.endsWith(".od")) {
+        f = f.slice(0, -3);
+    }
     prog = ""
     var p = f.split(".")[f.split(".").length - 1];
     if (_dataDataJson["toStartWith"][p] != undefined) {
         prog = _dataDataJson["toStartWith"][p]
     }
-    startProgramFile(prog, f);
+    startProgramFile(prog, ff);
 }
 
 startMenuClick = function (s) {
@@ -132,20 +135,19 @@ _dataWindows = [];
 
 _globalVar = {};
 
-loadData = function () {
-    json = JSON.parse(getFile("c/data.json"))
+loadData = async function () {
+    json = JSON.parse(await getFile("c/data.json"))
     _dataDataJson = json;
     json.programs.forEach(element => {
         _dataPrograms[element.name] = element.mainScript;
     });
 }
 
-loadData();
 window.onbeforeunload = function () {
     //return "sure?";
 }
 
-initHtml = function () {
+initHtml = async function () {
     document.querySelector("body").innerHTML = '<div id="all"><div id="stuff"></div><div id="StartMenu" style="display: none;"></div><div id="taskbar"><button onclick="toggleStartMenu();" id="home"><span>⁕</span></button></div></div>';
     //<div class="StartMenuSelector" onclick="startMenuClick(this);"><p>programs</p></div><hr>
     var d = [];
@@ -157,11 +159,15 @@ initHtml = function () {
     document.querySelector("body").onmousemove = function (event) { for (var element of document.getElementsByClassName('window')) { if (element.move) { element.style.top = parseInt(element.style.top) + event.movementY + 'px'; element.style.left = parseInt(element.style.left) + event.movementX + 'px'; event.preventDefault(); } } };
 
     var s = document.createElement("style");
-    s.innerHTML = getFile("c/css/styles.css");
+    s.innerHTML = await getFile("c/css/styles.css");
     document.getElementsByTagName("head")[0].appendChild(s);
 
     //set background img
-    document.getElementById("all").style.background = 'url("' + imagePathToStringSrc('c/static/background.jpg') + '") center center / cover no-repeat';
+    document.getElementById("all").style.background = 'url("' + await imagePathToStringSrc('c/static/background.jpg') + '") center center / cover no-repeat';
 }
-
-initHtml();
+async function start() {
+    eval(await getFile("c/js/window.js"));
+    await loadData();
+    await initHtml();
+}
+start();

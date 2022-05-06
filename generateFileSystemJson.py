@@ -11,8 +11,7 @@ def path_to_dict(path):
     else:
         f = open(path, 'rb')
         #d = {os.path.basename(path): f.read().hex(" ")}
-        d = {os.path.basename(path): base64.b64encode(
-            f.read()).decode('ascii')}
+        d = {os.path.basename(path): base64.b64encode(f.read()).decode('ascii')}
         f.close()
     return d
 
