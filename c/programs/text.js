@@ -77,7 +77,7 @@ class program {
         windowPrompt("what style(python, javascript, etc.)", this, "setStyle")
     }
     setStyle(text) {
-        document.querySelector(".highlighting-content").className = "highlighting-content language-" + text;
+        this.wind.getHtml().querySelector(".highlighting-content").className = "highlighting-content language-" + text;
         Prism.highlightElement(this.wind.getHtml().querySelector('.highlighting-content'));
     }
 }

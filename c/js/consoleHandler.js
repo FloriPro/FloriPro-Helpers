@@ -22,3 +22,9 @@ console.error = function (...data) {
         _dataConsole.shift();
     }
 }
+
+cls=function(){
+    _dataConsole = [];
+}
+
+_dataConsole = [];

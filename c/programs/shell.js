@@ -1,5 +1,7 @@
 class program {
     init() {
+        console.log("JShell V0.1 by FloriPro");        
+
         this.updateSlower = 0;
         this.wind = createWindow("Shell", "500", "fit-content", this);
         this.wind.setContent('<div class="consoleOutput"><div class="consoleLog"><p>console loading. Please Wait...</p></div></div><div style="display:flex"><p class="consoleInput">JShell></p><input placeholder="" class="consoleInput" type="text" style="width: -webkit-fill-available;" onkeyup="if (event.keyCode == 13){console.log(\'JShell>\'+this.value);try{eval(this.value);}catch(e){console.error(e);}this.value=\'\';searchWindows(\'' + this.wind.getClass() + '\').getProgram().redrawConsole()}"></input></div>')

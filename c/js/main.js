@@ -146,8 +146,6 @@ startMenuClick = function (s) {
 nextWindowPosX = parseInt(window.innerWidth / 2);
 nextWindowPosY = parseInt(window.innerHeight / 2);
 
-_dataConsole = [];
-
 _dataRunningProgrms = [];
 _dataPrograms = {};
 

@@ -10,6 +10,10 @@
     top: 0;
 }
 
+input {
+    outline: none;
+}
+
 .window {
     background: silver;
     box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #dfdfdf, inset -2px -2px grey, inset 2px 2px #fff;
@@ -179,11 +183,12 @@ button {
     color: white;
     height: 465px;
     overflow-y: scroll;
-    
+
     display: flex;
     flex-direction: column-reverse;
 }
-.consoleInput{
+
+.consoleInput {
     background: rgb(5, 10, 51);
     color: white;
     border: 0px;
@@ -192,9 +197,11 @@ button {
 .consoleLog {
     color: white;
 }
-.consoleWarn{
+
+.consoleWarn {
     color: rgb(222, 167, 0);
 }
-.consoleError{
+
+.consoleError {
     color: rgb(255, 0, 0);
 }
