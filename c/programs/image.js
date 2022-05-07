@@ -1,12 +1,4 @@
 class program {
-    onOpen() {
-        alert("open");
-    }
-
-    onOpen(file) {
-        alert("opened with file " + file);
-    }
-
     initFile(file) {
         this.init();
         this.imageSelect(file);

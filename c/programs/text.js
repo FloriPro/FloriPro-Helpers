@@ -1,11 +1,4 @@
 class program {
-    onOpen() {
-        alert("open");
-    }
-
-    onOpen(file) {
-        alert("opened with file " + file);
-    }
     initFile(file) {
         this.init();
         this.fileSelect(file);
@@ -15,14 +8,16 @@ class program {
         this.path = null
         this.selectWindow = null;
         this.wind = createWindow("Text editor", 550, 500, this);
-        this.wind.setContent('</div><div><textarea id="editing" oninput="let result_element = this.parentNode.querySelector(\'#highlighting-content\'); result_element.textContent = this.value;Prism.highlightElement(result_element);" onscroll="let result_element = this.parentNode.querySelector(\'#highlighting\');result_element.scrollTop = this.scrollTop;result_element.scrollLeft = this.scrollLeft;"></textarea><pre id="highlighting" aria-hidden="true"><code class="language-javascript" id="highlighting-content"></code></pre></div>')
+        this.wind.setContent('</div><div><textarea id="editing" oninput="let result_element = this.parentNode.querySelector(\'.highlighting-content\'); result_element.textContent = this.value;Prism.highlightElement(result_element);" onscroll="let result_element = this.parentNode.querySelector(\'#highlighting\');result_element.scrollTop = this.scrollTop;result_element.scrollLeft = this.scrollLeft;"></textarea><pre id="highlighting" aria-hidden="true"><code class="language-javascript highlighting-content"></code></pre></div>')
 
         this.wind.setButtons({
             "File": "searchWindows(\'" + this.wind.getClass() + "\').getProgram().openFileExplorer()",
             "Save": "searchWindows(\'" + this.wind.getClass() + "\').getProgram().save()",
             "New": "searchWindows(\'" + this.wind.getClass() + "\').getProgram().path=prompt('new name');",
-            "Run": "searchWindows(\'" + this.wind.getClass() + "\').getProgram().run()"
-        })
+            "code-style": "searchWindows(\'" + this.wind.getClass() + "\').getProgram().changeStyle()",
+            "Run JS": "searchWindows(\'" + this.wind.getClass() + "\').getProgram().run()",
+            "console": "startProgram('Shell')"
+        });
 
         this.wind.windowClose = function () {
             this.getProgram().removeSelf(this);
@@ -37,12 +32,16 @@ class program {
             styleSheet.innerText = await getFile("c/programs/text/prism2.css")
             document.head.appendChild(styleSheet)
 
-            eval(await getFile("c/programs/text/prism.js"))
-            eval(await getFile("c/programs/text/prismaddon.js"))
+            try {
+                eval(await getFile("c/programs/text/prism.js"))
+                //eval(await getFile("c/programs/text/prismaddon.js"))
+            } catch (e) {
+                console.error(e);
+            }
             _globalVar["prismOK"] = true
         }
 
-        Prism.highlightElement(this.wind.getHtml().querySelector('#highlighting-content'));
+        Prism.highlightElement(this.wind.getHtml().querySelector('.highlighting-content'));
 
 
         //this.selectWindow = createFastFileSelection(function () { this.getProgram().selectWindow = null; return true; }, "fileSelect", this)
@@ -64,12 +63,22 @@ class program {
         }
         this.selectWindow = null;
     }
-    save() {
-        saveFile(this.path, this.wind.getHtml().querySelector("#editing").value);
+    async save() {
+        await saveFile(this.path, this.wind.getHtml().querySelector("#editing").value);
     }
-    async run() {
-        this.save();
-        eval(await getFile(this.path));
+    run() {
+        try {
+            eval(this.wind.getHtml().querySelector("#editing").value);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+    changeStyle() {
+        windowPrompt("what style(python, javascript, etc.)", this, "setStyle")
+    }
+    setStyle(text) {
+        document.querySelector(".highlighting-content").className = "highlighting-content language-" + text;
+        Prism.highlightElement(this.wind.getHtml().querySelector('.highlighting-content'));
     }
 }
 

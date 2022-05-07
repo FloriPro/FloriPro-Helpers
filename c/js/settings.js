@@ -1,12 +1,4 @@
 class program {
-    onOpen() {
-        alert("this is an error");
-    }
-
-    onOpen(file) {
-        alert("this is an error " + file);
-    }
-
     async init() {
         this.wind = createWindow("Settings", "automatic", null, this);
         this.wind.windowClose = function () {

@@ -4,34 +4,51 @@ imagePathToStringSrc = async function (path) {
 }
 getFile = async function (path) {
     if (path.endsWith(".od")) {
+        var pathS = path + "(" + localStorage.getItem(fileLookup[path]) + ")";
+
         var wind = createWindow("Loading File", "automatic", null, this);
-        wind.setContent('<h1>Downloading File ' + path + '</h1>')
+        wind.setContent('<h1>Downloading File ' + pathS + '</h1>')
         wind.windowClose = function () {
             return true;
         }
 
-        var f = await fetch(localStorage.getItem(fileLookup[path]));
-        var array = await f.arrayBuffer();
+        var dat = ""
+        try {
+            var f = await fetch(localStorage.getItem(fileLookup[path]));
+            var array = await f.arrayBuffer();
 
-        wind.setContent('<h1>Loading File Data ' + path + '</h1>')
-        await delay(10);
-        var dat = bufferToString(array);
+            wind.setContent('<h1>Loading File Data ' + pathS + '</h1>')
+            await delay(10);
+            var dat = bufferToString(array);
+        } catch {
+            dat = "error downloading File!"
+            windowAlert("error downloading File!");
+        }
         wind.onCloseButton();//close loading window
         return dat;
     } else {
         return localStorage.getItem(fileLookup[path]);
     }
 }
-saveFile = function (path, data) {
-    if (fileLookup[path] == null) {
-        fileLookup[path] = Object.keys(fileLookup).length;//TODO: make better
+saveFile = async function (path, data) {
+    if (!path.endsWith(".od")) {
+        if (fileLookup[path] == null) {
+            fileLookup[path] = Object.keys(fileLookup).length;//TODO: make better
+            localStorage.setItem("fileLookup", JSON.stringify(fileLookup));
+        }
+        return localStorage.setItem(fileLookup[path], data);
+    } else {
+        if (fileLookup[path] == null) {
+            fileLookup[path] = Object.keys(fileLookup).length;//TODO: make better
+            localStorage.setItem("fileLookup", JSON.stringify(fileLookup));
+        } else {
+            windowAlert("can't save online File!");
+        }
     }
-    localStorage.setItem("fileLookup", JSON.stringify(fileLookup));
-    return localStorage.setItem(fileLookup[path], data)
 }
 bufferToString = function (buf) {
     var view = new Uint8Array(buf);
-    out=""
+    out = ""
     for (var x of view) {
         out += String.fromCharCode(x);
     }

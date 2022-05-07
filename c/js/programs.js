@@ -1,12 +1,4 @@
 class program {
-    onOpen() {
-        alert("this is an error");
-    }
-
-    onOpen(file) {
-        alert("this is an error " + file);
-    }
-
     init() {
         var data = "";
         for (const [key, value] of Object.entries(_dataPrograms)) {

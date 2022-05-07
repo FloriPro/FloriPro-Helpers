@@ -27,14 +27,17 @@
         {
             "name": "Explorer",
             "mainScript": "c/programs/explorer.js"
+        },
+        {
+            "name": "Shell",
+            "mainScript": "c/programs/shell.js"
         }
     ],
     "startMenu": {
         "Programs": "nextWindowPosX=30;nextWindowPosY=parseInt(window.innerHeight)-600;startProgram('programs')",
         "Info": "startProgram('Info')",
         "Settings": "startProgram('Settings')",
-        "Reset": "localStorage.clear();location.reload();",
-        "Exit": "document.getElementsByTagName('html')[0].remove(); alert('safe to shut down');"
+        "Reset": "localStorage.clear();location.reload();"
     },
     "settings": {
         "backgroundImage": "file",

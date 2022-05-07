@@ -50,8 +50,9 @@ createWindow = function (name, posx, posy, program, startX, startY) {
     return _dataWindows[_dataWindows.length - 1];
 }
 removeProgram = function (_this) {
+    program = _this.getProgram();
     for (var progr of _dataRunningProgrms) {
-        if (progr[0].id == _this.id) {
+        if (progr[1].id == program.id) {
             _dataRunningProgrms.splice(_dataRunningProgrms.indexOf(progr), 1);
             return;
         }
@@ -73,8 +74,11 @@ startProgram = async function (programName) {
     //var d = await response.text();
     var d = await getFile(_dataPrograms[programName]);
     var prog;
-    eval(d);
-
+    try {
+        eval(d);
+    } catch (e) {
+        console.error(e);
+    }
     //initialize program
     var i = 0;
     while (getProgramId(i) != null) {
@@ -83,7 +87,11 @@ startProgram = async function (programName) {
 
     prog.id = i;
     prog.removeSelf = removeProgram;
-    prog.init();
+    try {
+        prog.init();
+    } catch (e) {
+        console.error(e);
+    }
     _dataRunningProgrms.push([programName, prog]);
 }
 startProgramFile = async function (programName, file) {
@@ -92,8 +100,11 @@ startProgramFile = async function (programName, file) {
     //var d = await response.text();
     var d = await getFile(_dataPrograms[programName]);
     var prog;
-    eval(d);
-
+    try {
+        eval(d);
+    } catch (e) {
+        console.error(e);
+    }
     //initialize program
     var i = 0;
     while (getProgramId(i) != null) {
@@ -102,7 +113,11 @@ startProgramFile = async function (programName, file) {
 
     prog.id = i;
     prog.removeSelf = removeProgram;
-    prog.initFile(file);
+    try {
+        prog.initFile(file);
+    } catch (e) {
+        console.error(e);
+    }
     _dataRunningProgrms.push([programName, prog]);
 }
 
@@ -120,11 +135,18 @@ loadFile = function (f) {
 }
 
 startMenuClick = function (s) {
-    eval(_dataDataJson.startMenu[s.querySelector("p").innerText]);
+    try {
+        eval(_dataDataJson.startMenu[s.querySelector("p").innerText]);
+    } catch (e) {
+        console.error(e);
+    }
     toggleStartMenu();
 }
-nextWindowPosX = parseInt(window.innerWidth / 2);;
-nextWindowPosY = parseInt(window.innerHeight / 2);;
+
+nextWindowPosX = parseInt(window.innerWidth / 2);
+nextWindowPosY = parseInt(window.innerHeight / 2);
+
+_dataConsole = [];
 
 _dataRunningProgrms = [];
 _dataPrograms = {};
@@ -148,7 +170,7 @@ window.onbeforeunload = function () {
 }
 
 initHtml = async function () {
-    document.querySelector("body").innerHTML = '<div id="all"><div id="stuff"></div><div id="StartMenu" style="display: none;"></div><div id="taskbar"><button onclick="toggleStartMenu();" id="home"><span>⁕</span></button></div></div>';
+    document.querySelector("body").innerHTML = '<div id="all"><div id="stuff"></div><div id="StartMenu" style="display: none;z-index:999999"></div><div id="taskbar"><button onclick="toggleStartMenu();" id="home"><span>⁕</span></button></div></div>';
     //<div class="StartMenuSelector" onclick="startMenuClick(this);"><p>programs</p></div><hr>
     var d = [];
     for (const [path, value] of Object.entries(_dataDataJson["startMenu"])) {
@@ -156,19 +178,37 @@ initHtml = async function () {
     }
     document.querySelector("#StartMenu").innerHTML = d.join("<hr>")
     document.querySelector("body").onmouseup = function (event) { for (var element of document.getElementsByClassName('window')) { element.move = false; } };
-    document.querySelector("body").onmousemove = function (event) { for (var element of document.getElementsByClassName('window')) { if (element.move) { element.style.top = parseInt(element.style.top) + event.movementY + 'px'; element.style.left = parseInt(element.style.left) + event.movementX + 'px'; event.preventDefault(); } } };
+    document.querySelector("body").onmousemove = function (event) {
+        for (var element of document.getElementsByClassName('window')) {
+            if (element.move) {
+                element.style.top = parseInt(element.style.top) + event.movementY + 'px';
+                element.style.left = parseInt(element.style.left) + event.movementX + 'px'; event.preventDefault();
+            }
+        }
+    };
+    //document.querySelector("body").ontouchend = document.querySelector("body").onmouseup;
+    //document.querySelector("body").onpointermove = document.querySelector("body").onmousemove;
 
     var s = document.createElement("style");
     s.innerHTML = await getFile("c/css/styles.css");
     document.getElementsByTagName("head")[0].appendChild(s);
 
     //set background img
-    document.getElementById("all").style.background = 'url("' + await imagePathToStringSrc('c/static/background.jpg') + '") center center / cover no-repeat';
+    document.getElementById("all").style.background = 'url("' + await imagePathToStringSrc(_dataSettings["backgroundImage"]) + '") center center / cover no-repeat';
 }
 async function start() {
     eval(await getFile("c/js/window.js"));
+    _dataSettings = JSON.parse(await getFile("c/js/settings/data.json"));
     await loadData();
     await initHtml();
+
+    setInterval(function () {
+        for (progr of _dataRunningProgrms) {
+            if (progr[1].update != undefined) {
+                progr[1].update();
+            }
+        }
+    }, 100)
 }
 
 delay = function (time) {

@@ -148,7 +148,7 @@ button {
     display: flex;
     flex-direction: row;
     line-height: 14px;
-    padding: 2px;
+    padding: 5px;
     cursor: pointer;
 
     background: silver;
@@ -172,4 +172,29 @@ button {
 
 #home span {
     font-size: 60px;
+}
+
+.consoleOutput {
+    background: rgb(5, 10, 51);
+    color: white;
+    height: 465px;
+    overflow-y: scroll;
+    
+    display: flex;
+    flex-direction: column-reverse;
+}
+.consoleInput{
+    background: rgb(5, 10, 51);
+    color: white;
+    border: 0px;
+}
+
+.consoleLog {
+    color: white;
+}
+.consoleWarn{
+    color: rgb(222, 167, 0);
+}
+.consoleError{
+    color: rgb(255, 0, 0);
 }
