@@ -143,8 +143,8 @@ startMenuClick = function (s) {
     toggleStartMenu();
 }
 
-nextWindowPosX = parseInt(window.innerWidth / 2);
-nextWindowPosY = parseInt(window.innerHeight / 2);
+nextWindowPosX = undefined;
+nextWindowPosY = undefined;
 
 _dataRunningProgrms = [];
 _dataPrograms = {};

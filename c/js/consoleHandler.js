@@ -1,6 +1,6 @@
 oldLog = console.log;
 console.log = function (...data) {
-    oldLog(data);
+    oldLog(data.join(" "));
     _dataConsole.push({ "log": data.join(" ") });
     if (_dataConsole.length > 50) {
         _dataConsole.shift();

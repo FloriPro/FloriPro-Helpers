@@ -1,7 +1,17 @@
 LocalWindow = class {
     constructor(name, sizeX, sizeY, program, startPosX, startPosY) {
-        if (startPosX == undefined) { startPosX = nextWindowPosX; nextWindowPosX = parseInt(window.innerWidth / 2); }
-        if (startPosY == undefined) { startPosY = nextWindowPosY; nextWindowPosY = parseInt(window.innerHeight / 2); }
+        if(nextWindowPosX==undefined){
+            nextWindowPosX = parseInt(window.innerWidth / 10);
+        }
+        if(nextWindowPosY==undefined){
+            nextWindowPosY = parseInt(window.innerHeight / 10);
+        }
+        if (startPosX == undefined) {
+            startPosX = nextWindowPosX;
+        }
+        if (startPosY == undefined) {
+            startPosY = nextWindowPosY; 
+        }
 
         this.program = program;
         this.name = "windwoasdöflkj";
@@ -9,9 +19,6 @@ LocalWindow = class {
         this.isMoving = false;
 
         $("#stuff").append('<div class="window window' + this.name + '_' + this.uuid + '" style="z-index: 1;position: absolute; top: ' + startPosY + 'px; left: ' + startPosX + 'px;"><div class="title-bar" ontouchstart="this.parentNode.move=true;event.preventDefault();sortWindowZIndex(this.parentNode);" onmousedown="this.parentNode.move=true;event.preventDefault();sortWindowZIndex(this.parentNode);"><div class="title-bar-text"><span>' + name + '</span></div> <div class="title-bar-controls"><button aria-label="Minimize"></button> <button aria-label="Maximize"></button><button aria-label="Close" class="close" onclick="var p = this.parentNode.parentNode.parentNode; var n=p.className;var w=searchWindows(n);w.onCloseButton();"></button></div></div><div style="display:flex" class="buttonData"></div><div class="content"><p>loading Window content... please wait</p></div></div>');
-        
-        startPosX == undefined;
-        startPosY == undefined;
 
         if (sizeX == "automatic") {
             this.type = "aut"
