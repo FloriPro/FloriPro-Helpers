@@ -41,7 +41,11 @@
     },
     "settings": {
         "backgroundImage": "file",
-        "unset": "text"
+        "unset": "text",
+        "randomNum": "number"
+    },
+    "settingsChange": {
+        "backgroundImage": "async function a(){document.getElementById(\"all\").style.background = 'url(\"' + await imagePathToStringSrc(_dataSettings[\"backgroundImage\"]) + '\") center center / cover no-repeat';}a();"
     },
     "toStartWith": {
         "js": "TextEditor",
@@ -52,6 +56,7 @@
         "html": "TextEditor",
         "py": "TextEditor",
         "md": "TextEditor",
-        "jpg": "ImageDisplay"
+        "jpg": "ImageDisplay",
+        "default":"TextEditor"
     }
 }

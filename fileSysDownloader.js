@@ -18,7 +18,7 @@ async function loadData() {
 
     //localStorage.setItem("filesys.json", d);
 
-    var toRun = localStorage.getItem(fileLookup["c/boot.dat"]).split("\n");
+    var toRun = localStorage.getItem(fileLookup["c/boot.dat"]).replaceAll("\r","").split("\n");
     for (var r of toRun) {
         eval(localStorage.getItem(fileLookup[r]));
     }

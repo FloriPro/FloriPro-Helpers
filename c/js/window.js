@@ -1,17 +1,19 @@
 LocalWindow = class {
     constructor(name, sizeX, sizeY, program, startPosX, startPosY) {
-        if(nextWindowPosX==undefined){
+        if (nextWindowPosX == undefined) {
             nextWindowPosX = parseInt(window.innerWidth / 10);
         }
-        if(nextWindowPosY==undefined){
+        if (nextWindowPosY == undefined) {
             nextWindowPosY = parseInt(window.innerHeight / 10);
         }
         if (startPosX == undefined) {
             startPosX = nextWindowPosX;
         }
         if (startPosY == undefined) {
-            startPosY = nextWindowPosY; 
+            startPosY = nextWindowPosY;
         }
+        nextWindowPosX = undefined;
+        nextWindowPosY = undefined;
 
         this.program = program;
         this.name = "windwoasdöflkj";

@@ -122,6 +122,7 @@ startProgramFile = async function (programName, file) {
 }
 
 loadFile = function (f) {
+    console.log("loading " + f);
     var ff = f;
     if (f.endsWith(".od")) {
         f = f.slice(0, -3);
@@ -130,6 +131,8 @@ loadFile = function (f) {
     var p = f.split(".")[f.split(".").length - 1];
     if (_dataDataJson["toStartWith"][p] != undefined) {
         prog = _dataDataJson["toStartWith"][p]
+    } else {
+        prog = _dataDataJson["toStartWith"]["default"]
     }
     startProgramFile(prog, ff);
 }
@@ -207,6 +210,9 @@ async function start() {
             }
         }
     }, 100)
+}
+saveSettings = async function () {
+    await saveFile("c/js/settings/data.json", JSON.stringify(_dataSettings))
 }
 
 delay = function (time) {

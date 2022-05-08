@@ -1,4 +1,5 @@
 {
-    "backgroundImage": "c/static/wallpaperflare.com_wallpaper.jpg.od",
-    "unset": "idk"
+    "backgroundImage": "c/static/background.jpg",
+    "unset": "idk",
+    "randomNum": 5
 }

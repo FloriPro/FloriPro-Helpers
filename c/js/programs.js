@@ -10,8 +10,8 @@ class program {
 
         this.wind = createWindow("Programs", "automatic", null, this);
         this.wind.windowClose = function () {
-            nextWindowPosX = parseInt(document.getElementsByClassName(this.getClass())[0].style.left)
-            nextWindowPosY = parseInt(document.getElementsByClassName(this.getClass())[0].style.top)
+            //nextWindowPosX = parseInt(document.getElementsByClassName(this.getClass())[0].style.left)
+            //nextWindowPosY = parseInt(document.getElementsByClassName(this.getClass())[0].style.top)
             this.getProgram().removeSelf(this);
             return true;
         }

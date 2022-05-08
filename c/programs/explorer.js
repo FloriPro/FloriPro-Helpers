@@ -57,22 +57,28 @@ class program {
         this.loadFiles();
     }
     rightclick(e) {
+        var menuData = {}
         if (e.path[0].attributes.pos != undefined) {
             var path = e.path[0].attributes.pos.value;
 
-            if (path.endsWith(".od") && !this.setOnlineAdressWaiting) {
-                this.setOnlineAdressWaiting = true;
-                this.setOnlineAdressPath = path
-                windowPrompt("New Adress (" + localStorage.getItem(fileLookup[path]) + ")", this, "setOnlineAdress", "cancelSetOnlineAdress")
+            menuData["duplicate"] = "windowAlert('wipDupe')";
+            menuData["run as Program"] = "windowAlert('wipRun')";
+
+            if (path.endsWith(".od") && !this.Waiting) {
+                menuData["edit Adress"] = 'var t =searchWindows(\'' + this.wind.getClass() + '\').getProgram();t.Waiting=true;t.setOnlineAdressPath = \'' + path + '\';windowPrompt(\'New Adress (\' + localStorage.getItem(fileLookup[`' + path + '`]) + \')\', t, \'setOnlineAdress\', \'cancelWaiting\')';
             }
+        } else {
+            menuData["nothing to see here"] = "";
         }
+        rightclickMenu(menuData, e.x, e.y);
     }
     setOnlineAdress(value) {
-        this.setOnlineAdressWaiting = false;
+        console.log("set addres " + this.setOnlineAdressPath + " to " + value);
+        this.Waiting = false;
         localStorage.setItem(fileLookup[this.setOnlineAdressPath], value)
     }
-    cancelSetOnlineAdress() {
-        this.setOnlineAdressWaiting = false;
+    cancelWaiting() {
+        this.Waiting = false;
     }
 
     async newFile() {
