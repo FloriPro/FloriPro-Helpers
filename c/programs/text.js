@@ -1,7 +1,7 @@
 class program {
-    initFile(file) {
-        this.init();
-        this.fileSelect(file);
+    async initFile(file) {
+        await this.init();
+        await this.fileSelect(file);
     }
 
     async init() {

@@ -23,8 +23,11 @@ console.error = function (...data) {
     }
 }
 
-cls=function(){
+cls = function () {
     _dataConsole = [];
+}
+help = function () {
+    windowAlert("This is javascript. Informations: https://developer.mozilla.org/en-US/docs/Web/JavaScript")
 }
 
 _dataConsole = [];

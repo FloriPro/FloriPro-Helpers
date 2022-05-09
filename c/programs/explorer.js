@@ -37,9 +37,9 @@ class program {
         for (const [key, value] of Object.entries(fileLookup)) {
             if (key.startsWith(this.pos)) {
                 if (!key.replace(this.pos, "").includes("/")) {
-                    files.push("<button pos=\"" + key + "\" onclick=\"loadFile('" + key + "')\">" + key.replace(this.pos, "") + "</button>");
+                    files.push("<button style=\"width: -webkit-fill-available;\" pos=\"" + key + "\" onclick=\"loadFile('" + key + "')\">" + key.replace(this.pos, "") + "</button>");
                 } else if (key.replace(this.pos, "").split("/").length > 1) {
-                    var v = "<button onclick=\"searchWindows('" + this.wind.getClass() + "').getProgram().folderSel('" + key.replace(this.pos, "").split("/")[0] + "');\">" + key.replace(this.pos, "").split("/")[0] + "/</button>"
+                    var v = "<button style=\"width: -webkit-fill-available;\" onclick=\"searchWindows('" + this.wind.getClass() + "').getProgram().folderSel('" + key.replace(this.pos, "").split("/")[0] + "');\">" + key.replace(this.pos, "").split("/")[0] + "/</button>"
                     if (!folders.includes(v)) {
                         folders.push(v);
                     }
