@@ -18,6 +18,16 @@ windowPrompt = function (text, program, returnFunction, cancelFunction, type) {
         return true;
     }
 }
+windowConfirm = function (text, program, returnFunction) {
+    var wind = createWindow("Alert", "automatic", null, null);
+    wind.setContent("<h1>" + htmlEntities(text) + "</h1><button onclick=\"getProgramId('" + program.id + "')." + returnFunction + "(true);searchWindows('" + wind.getClass() + "').onCloseButton();\">YES</button><button onclick=\"getProgramId('" + program.id + "')." + returnFunction + "(false);searchWindows('" + wind.getClass() + "').onCloseButton();\">NO</button>");
+
+    wind.windowClose = function () {
+        eval("getProgramId('" + program.id + "')." + returnFunction + "(false);");
+        return true;
+    }
+}
+
 createFastFileSelection = function (onClose, endFunctionName, program) {
     var selectWindow = createWindow("File selection (v. 0.1)", "automatic", null, program);
     selectWindow.windowClose = onClose;

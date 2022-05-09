@@ -67,17 +67,16 @@ htmlEntities = function (str) {
 downloadSync = function (url) {
     return "idk how to do this";
 }
-
-startProgram = async function (programName) {
-    //create program from online file (evaling to get class)
-    //response = await fetch(_dataPrograms[programName]);
-    //var d = await response.text();
-    var d = await getFile(_dataPrograms[programName]);
-    var prog;
+startProgramByString = async function (d, programName) {
+    var prog = undefined;
     try {
         eval(d);
     } catch (e) {
         console.error(e);
+    }
+    if (prog == undefined) {
+        console.error("Could not start Program. Program doesn't return variable prog!");
+        return;
     }
     //initialize program
     var i = 0;
@@ -93,6 +92,13 @@ startProgram = async function (programName) {
         console.error(e);
     }
     _dataRunningProgrms.push([programName, prog]);
+}
+startProgram = async function (programName) {
+    //create program from online file (evaling to get class)
+    //response = await fetch(_dataPrograms[programName]);
+    //var d = await response.text();
+    var d = await getFile(_dataPrograms[programName]);
+    await startProgramByString(d, programName);
 }
 startProgramFile = async function (programName, file) {
     //create program from online file (evaling to get class)
@@ -122,7 +128,6 @@ startProgramFile = async function (programName, file) {
 }
 
 loadFile = function (f) {
-    console.log("loading " + f);
     var ff = f;
     if (f.endsWith(".od")) {
         f = f.slice(0, -3);

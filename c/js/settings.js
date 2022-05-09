@@ -40,26 +40,24 @@ class program {
         }
     }
     async dataReturn(output) {
-        if (this.selectWindow != null) {
-            this.selectWindow.onCloseButton();
-        }
-        console.log("returned " + output);
         _dataSettings[this.currentSelection] = output;
 
         eval(_dataDataJson["settingsChange"][this.currentSelection])
+
+        saveSettings();
 
         var d = "";
         for (const [key, value] of Object.entries(JSON.parse(await getFile("c/data.json"))["settings"])) {
             d += "<button onclick=\"searchWindows('" + this.wind.getClass() + "').getProgram().openSetting('" + key + "')\">" + key + ": " + _dataSettings[key] + "</button>";
         }
-
         this.wind.setContent("<h1>Settings:</h1>" + d)
+        if (this.selectWindow != null) {
+            this.selectWindow.onCloseButton();
+        }
         this.currentSelection = null;
-        saveSettings();
     }
     async dataCanceled() {
         this.currentSelection = null;
-        console.log("canceled selection");
     }
 }
 

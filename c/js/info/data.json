@@ -1,0 +1,20 @@
+{
+    "children": {
+        "index": {
+            "text": "this is a bad javascript operating system. All the data (after downloaded) is stored localy in the browser. More information in these links",
+            "children": {
+                "files": {
+                    "text": "files are stored in the localstorage. All files that end with .od are files that download ther data.",
+                    "_comment": "/*the child 'Programs' goes to a specific position declared by the _index*/",
+                    "children": {
+                        "Programs": "_index/Programs"
+                    }
+                },
+                "Programs": {
+                    "text": "What should I say about Programs?",
+                    "children": {}
+                }
+            }
+        }
+    }
+}
