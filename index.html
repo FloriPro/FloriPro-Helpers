@@ -10,9 +10,9 @@
   <meta name="author" content="FloriPro">
 
   <script>
-    document.addEventListener("error", function (event) {
-      console.error(event);
-    });
+    window.onerror = function (msg, url, line) {
+      console.error(msg)
+    }
   </script>
 
   <!--<link rel="icon" href="/favicon.ico">
