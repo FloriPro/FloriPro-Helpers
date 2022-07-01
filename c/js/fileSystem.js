@@ -6,7 +6,7 @@ getFile = async function (path) {
     if (path.endsWith(".od")) {
         var pathS = path + "(" + localStorage.getItem(fileLookup[path]) + ")";
 
-        var wind = createWindow("Loading File", "automatic", null, this);
+        var wind = createWindow("Loading File", 200, "fit-content ", this);
         wind.setContent('<h1>Downloading File ' + pathS + '</h1>')
         wind.windowClose = function () {
             return true;

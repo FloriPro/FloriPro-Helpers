@@ -3,7 +3,7 @@ class program {
         this.currentSelection = null;
         this.selectWindow == null;
 
-        this.wind = createWindow("Settings", "automatic", null, this);
+        this.wind = createWindow("Settings", 500, 600, this);
         this.wind.windowClose = function () {
             this.getProgram().removeSelf(this);
             return true;

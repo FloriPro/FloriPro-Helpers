@@ -183,14 +183,21 @@ initHtml = async function () {
         d.push('<div class="StartMenuSelector" onclick="startMenuClick(this);"><p>' + path + '</p></div>')
     }
     document.querySelector("#StartMenu").innerHTML = d.join("<hr>")
-    document.querySelector("body").onmouseup = function (event) { for (var element of document.getElementsByClassName('window')) { element.move = false; } };
+    document.querySelector("body").onmouseup = function (event) { for (var element of document.getElementsByClassName('window')) { element.move = false; element.resize = false; } };
     document.querySelector("body").onmousemove = function (event) {
         for (var element of document.getElementsByClassName('window')) {
             if (element.move) {
                 element.style.top = parseInt(element.style.top) + event.movementY + 'px';
                 element.style.left = parseInt(element.style.left) + event.movementX + 'px'; event.preventDefault();
             }
+            if (element.resize) {
+                var r = searchWindows(element.className);
+                if (r != null) {
+                    r.addWindowSize(event.movementX, event.movementY);
+                }
+            }
         }
+        event.preventDefault();
     };
     //document.querySelector("body").ontouchend = document.querySelector("body").onmouseup;
     //document.querySelector("body").onpointermove = document.querySelector("body").onmousemove;

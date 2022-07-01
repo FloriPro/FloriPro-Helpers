@@ -8,7 +8,7 @@ class program {
             data += "<p onclick='startProgram(\"" + key + "\");getProgramId(" + this.id + ").wind.onCloseButton();' style='cursor:pointer;'>" + key + "</p>";
         }
 
-        this.wind = createWindow("Programs", "automatic", null, this);
+        this.wind = createWindow("Programs", 300, 600, this);
         this.wind.windowClose = function () {
             //nextWindowPosX = parseInt(document.getElementsByClassName(this.getClass())[0].style.left)
             //nextWindowPosY = parseInt(document.getElementsByClassName(this.getClass())[0].style.top)

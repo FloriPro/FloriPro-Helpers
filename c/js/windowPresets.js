@@ -1,14 +1,14 @@
 windowAlert = function (text) {
     nextWindowPosX = parseInt(window.innerWidth / 2.5);
     nextWindowPosY = parseInt(window.innerHeight / 2.5);
-    var wind = createWindow("Alert", "automatic", null, null);
+    var wind = createWindow("Alert", 700, 200, null);
     wind.setContent("<h1>" + htmlEntities(text) + "</h1><button onclick=\"searchWindows('" + wind.getClass() + "').onCloseButton();\">OK</button>");
 }
 windowPrompt = function (text, program, returnFunction, cancelFunction, type) {
     if (type == undefined) {
         type = "text"
     }
-    var wind = createWindow("Alert", "automatic", null, null);
+    var wind = createWindow("Alert", 700, 200, null);
     wind.setContent("<h1>" + htmlEntities(text) + "</h1><input id=\"inp\" type=\"" + type + "\"><button onclick=\"getProgramId('" + program.id + "')." + returnFunction + "(this.parentNode.querySelector('#inp').value);searchWindows('" + wind.getClass() + "').onCloseButton();\">OK</button>");
 
     wind.windowClose = function () {
@@ -19,7 +19,7 @@ windowPrompt = function (text, program, returnFunction, cancelFunction, type) {
     }
 }
 windowConfirm = function (text, program, returnFunction) {
-    var wind = createWindow("Alert", "automatic", null, null);
+    var wind = createWindow("Alert", 700, 200, null);
     wind.setContent("<h1>" + htmlEntities(text) + "</h1><button onclick=\"getProgramId('" + program.id + "')." + returnFunction + "(true);searchWindows('" + wind.getClass() + "').onCloseButton();\">YES</button><button onclick=\"getProgramId('" + program.id + "')." + returnFunction + "(false);searchWindows('" + wind.getClass() + "').onCloseButton();\">NO</button>");
 
     wind.windowClose = function () {
@@ -29,7 +29,7 @@ windowConfirm = function (text, program, returnFunction) {
 }
 
 createFastFileSelection = function (onClose, endFunctionName, program) {
-    var selectWindow = createWindow("File selection (v. 0.1)", "automatic", null, program);
+    var selectWindow = createWindow("File selection (v. 0.1)", 500, 800, program);
     selectWindow.windowClose = onClose;
 
     //create data
