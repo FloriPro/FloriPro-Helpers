@@ -73,10 +73,11 @@ startProgramByString = async function (d, programName) {
         eval(d);
     } catch (e) {
         console.error(e);
+        return e;
     }
     if (prog == undefined) {
         console.error("Could not start Program. Program doesn't return variable prog!");
-        return;
+        return "Could not start Program. Program doesn't return variable prog!";
     }
     //initialize program
     var i = 0;
@@ -88,17 +89,20 @@ startProgramByString = async function (d, programName) {
     prog.removeSelf = removeProgram;
     try {
         prog.init();
+        _dataRunningProgrms.push([programName, prog]);
     } catch (e) {
         console.error(e);
+        _dataRunningProgrms.push([programName, prog]);
+        return e;
     }
-    _dataRunningProgrms.push([programName, prog]);
 }
 startProgram = async function (programName) {
     //create program from online file (evaling to get class)
     //response = await fetch(_dataPrograms[programName]);
     //var d = await response.text();
     var d = await getFile(_dataPrograms[programName]);
-    await startProgramByString(d, programName);
+    if (d == null) { console.error("Program file doesn't exits"); return; }
+    return await startProgramByString(d, programName);
 }
 startProgramFile = async function (programName, file) {
     //create program from online file (evaling to get class)

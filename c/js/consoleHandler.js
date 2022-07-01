@@ -23,11 +23,20 @@ console.error = function (...data) {
     }
 }
 
+console.information = function (...data) {
+    oldError(data);
+    _dataConsole.push({ "information": data.join(" ") });
+    if (_dataConsole.length > 50) {
+        _dataConsole.shift();
+    }
+}
+
 cls = function () {
     _dataConsole = [];
 }
 help = function () {
     windowAlert("This is javascript. Informations: https://developer.mozilla.org/en-US/docs/Web/JavaScript")
+    console.information("special commands: help(), cls()");
 }
 
 _dataConsole = [];

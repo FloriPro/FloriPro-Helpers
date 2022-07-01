@@ -3,7 +3,7 @@ class program {
         this.currentPath = "index"
         this.informationData = JSON.parse(await getFile("c/js/info/data.json"));
 
-        this.wind = createWindow("Info", 500, "fit-content", this);
+        this.wind = createWindow("Info", 500, 400, this);
         this.wind.windowClose = function () {
             return true;
         }

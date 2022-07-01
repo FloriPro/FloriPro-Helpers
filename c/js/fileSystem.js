@@ -6,18 +6,25 @@ getFile = async function (path) {
     if (path.endsWith(".od")) {
         var pathS = path + "(" + localStorage.getItem(fileLookup[path]) + ")";
 
-        var wind = createWindow("Loading File", 200, "fit-content ", this);
-        wind.setContent('<h1>Downloading File ' + pathS + '</h1>')
+        var wind = createWindow("", "fit-content", "fit-content", this);
+        wind.setContent('<h1 style="background:white;width:fit-content;">Downloading File ' + pathS + '</h1>')
         wind.windowClose = function () {
             return true;
         }
+
+        wind.getHtml().style.background = "#ffffff00"
+        wind.getHtml().querySelector(".title-bar").style.background = "#ffffff00"
+        wind.getHtml().querySelector(".close").style.background = "rgb(247 247 247 / 0%)"
+        wind.getHtml().querySelector(".minimize").style.background = "rgb(247 247 247 / 0%)"
+        wind.getHtml().querySelector(".maximize").style.background = "rgb(247 247 247 / 0%)"
+        wind.getHtml().style.boxShadow= "unset";
 
         var dat = ""
         try {
             var f = await fetch(localStorage.getItem(fileLookup[path]));
             var array = await f.arrayBuffer();
 
-            wind.setContent('<h1>Loading File Data ' + pathS + ' </h1><p class="loadingPercent">0%</p>')
+            wind.setContent('<h1 style="background:white;width:fit-content;">Loading File Data ' + pathS + ' </h1><p style="background:white;width:fit-content;" class="loadingPercent">0%</p>')
             await delay(10);
             var dat = await bufferToString(array, wind.getHtml().querySelector(".loadingPercent"));
         } catch (e) {

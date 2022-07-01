@@ -16,7 +16,7 @@ input {
 
 .window {
     background: white;
-    box-shadow: 0px 0px 30px #000000;
+    box-shadow: 0px 0px 30px #00000024;
     padding: 12px;
     cursor: nw-resize;
 }
@@ -219,6 +219,10 @@ button:hover {
 
 .consoleLog {
     color: white;
+}
+
+.consoleInformation{
+    color: gray;
 }
 
 .consoleWarn {

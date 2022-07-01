@@ -28,8 +28,8 @@ LocalWindow = class {
                         <span>` + name + `</span>
                     </div>
                     <div class="title-bar-controls">
-                        <button aria-label="Minimize"></button>
-                        <button aria-label="Maximize"></button>
+                        <button aria-label="Minimize" class="minimize"></button>
+                        <button aria-label="Maximize" class="maximize"></button>
                         <button aria-label="Close" class="close" onclick="var p = this.parentNode.parentNode.parentNode.parentNode; var n=p.className;var w=searchWindows(n);w.onCloseButton();"></button>
                     </div>
                 </div>

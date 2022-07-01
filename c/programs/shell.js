@@ -5,7 +5,7 @@ class program {
 
         this.updateSlower = 0;
         this.wind = createWindow("Shell", "500", "fit-content", this);
-        this.wind.setContent('<div class="consoleOutput"><div class="consoleLog"><p>console loading. Please Wait...</p></div></div><div style="display:flex"><p class="consoleInput">JShell></p><input placeholder="" class="consoleInput" type="text" style="width: -webkit-fill-available;" onkeyup="if (event.keyCode == 13){console.log(\'JShell>\'+this.value);try{var r=eval(this.value);if (r==undefined){console.log(\'> undefined\')}else{console.log(\'> \'+r)};}catch(e){console.error(e);}this.value=\'\';searchWindows(\'' + this.wind.getClass() + '\').getProgram().redrawConsole()}"></input></div>')
+        this.wind.setContent('<div class="consoleOutput"><div class="consoleLog"><p>console loading. Please Wait...</p></div></div><div style="display:flex"><p class="consoleInput">JShell></p><input placeholder="" class="consoleInput" type="text" style="width: -webkit-fill-available;" onkeyup="if (event.keyCode == 13){console.log(\'JShell>\'+this.value);try{var r=eval(this.value);if (r==undefined){console.information(\'> undefined\')}else{console.log(\'> \'+r)};}catch(e){console.error(e);}this.value=\'\';searchWindows(\'' + this.wind.getClass() + '\').getProgram().redrawConsole()}"></input></div>')
         this.wind.windowClose = function () {
             this.getProgram().removeSelf(this);
             return true;
@@ -24,6 +24,8 @@ class program {
                 var className = "consoleLog";
             } else if (xk[0] == "warn") {
                 var className = "consoleWarn";
+            } else if (xk[0] == "information") {
+                var className = "consoleInformation";
             } else if (xk[0] == "error") {
                 var className = "consoleError";
             }

@@ -31,6 +31,10 @@
         {
             "name": "Shell",
             "mainScript": "c/programs/shell.js"
+        },
+        {
+            "name": "Experiments",
+            "mainScript": "c/programs/experiments.js"
         }
     ],
     "startMenu": {

@@ -1,7 +1,7 @@
 windowAlert = function (text) {
     nextWindowPosX = parseInt(window.innerWidth / 2.5);
     nextWindowPosY = parseInt(window.innerHeight / 2.5);
-    var wind = createWindow("Alert", 700, 200, null);
+    var wind = createWindow("Alert", "fit-content", "fit-content", null);
     wind.setContent("<h1>" + htmlEntities(text) + "</h1><button onclick=\"searchWindows('" + wind.getClass() + "').onCloseButton();\">OK</button>");
 }
 windowPrompt = function (text, program, returnFunction, cancelFunction, type) {
@@ -60,3 +60,9 @@ document.addEventListener('click', event => {
         document.querySelector(".contexMenu").remove();
     }
 });
+
+var alertOld = alert;
+alert = function (info) {
+    alertOld(info)
+    console.warn("did you mean: windowAlert? This is better suited in this enviorment!")
+}
