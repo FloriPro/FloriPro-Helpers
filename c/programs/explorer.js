@@ -62,6 +62,7 @@ class program {
             var path = e.path[0].attributes.pos.value;
 
             menuData["duplicate"] = "windowAlert('wipDupe')";
+            menuData["run"] = 'var l = async ()=>{eval(await getFile(\'' + path + '\'))};l();';//make it async to await file
             menuData["run as Program"] = 'var p = searchWindows(\'' + this.wind.getClass() + '\').getProgram(); p.startProgram(\'' + path + '\')';
 
             if (path.endsWith(".od") && !this.Waiting) {
@@ -102,7 +103,7 @@ class program {
     async realyStartProgram(response) {
         var path = this.currentQuestion;
         this.currentQuestion = null;
-        
+
         if (response) {
             startProgramByString(await getFile(path), path.split("/")[path.split("/").length - 1]);
         }
