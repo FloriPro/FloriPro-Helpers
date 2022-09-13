@@ -23,7 +23,7 @@ LocalWindow = class {
         $("#stuff").append(`
         <div onmousedown="if(event.path[0]==this){this.resize=true;}" class="window window` + this.name + `_` + this.uuid + `" style="z-index: 1;position: absolute; top: ` + startPosY + `px; left: ` + startPosX + `px;">
             <div class="windowInline" style="height: inherit;">
-                <div class="title-bar" ontouchstart="this.parentNode.move=true;event.preventDefault();sortWindowZIndex(this.parentNode.parentNode);" onmousedown="this.parentNode.parentNode.move=true;event.preventDefault();sortWindowZIndex(this.parentNode.parentNode);">
+                <div class="title-bar" ontouchstart="this.parentNode.move=true;event.preventDefault();sortWindowZIndex(this.parentNode.parentNode);" onmousedown="this.parentNode.move=true;event.preventDefault();sortWindowZIndex(this.parentNode.parentNode);">
                     <div class="title-bar-text">
                         <span>` + name + `</span>
                     </div>
